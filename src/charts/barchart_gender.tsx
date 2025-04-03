@@ -22,13 +22,14 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'Gender Distribution Chart',
     },
   },
 };
@@ -39,20 +40,19 @@ export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: 'Gender Count',
       data: labels.map(() => faker.number.int({ min: 0, max: 1000 })), 
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })), 
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
+      backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+    }
   ],
 };
 
 const BarchartGender = () => {
-  return <Bar options={options} data={data} />;
+  return (
+    <div style={{ height: '400px', width: '100%' }}>
+      <Bar options={options} data={data} />
+    </div>
+  );
 };
 
 export default BarchartGender;

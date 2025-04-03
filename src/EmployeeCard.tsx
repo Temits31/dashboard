@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import BarchartGender from "./charts/barchart_gender";
+
+
 
 type RowData = {
   item_number: string;
@@ -53,8 +56,8 @@ const EmployeeCard = () => {
       <div className="grid grid-cols-3 gap-4">
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+            <BarchartGender></BarchartGender>
             
-            <p className="text-sm text-gray-500">Details here</p>
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
