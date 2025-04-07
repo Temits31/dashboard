@@ -21,7 +21,7 @@ ChartJS.register(
 );
 
 export const options = {
-  indexAxis: 'y' as const,
+  indexAxis: 'x' as const,
   elements: {
     bar: {
       borderWidth: 2,
@@ -30,34 +30,34 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right' as const,
+      position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Department',
+      text: 'isFilled',
     },
   },
 };
 
 
-export function Horbarchart_department() {
+export function BarchartisFilled() {
   const [chartData, setChartData] = useState<any>({
     labels: [],
     datasets: [],
   });
 
   useEffect(() => {
-    fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getDept.php')
+    fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getisFilled.php')
       .then((res) => res.json())
       .then((data) => {
-        const labels = data.map((item: any) => item.department);
+        const labels = data.map((item: any) => item.status);
         const counts = data.map((item: any) => item.count);
 
         setChartData({
           labels,
           datasets: [
             {
-              label: 'Departments',
+              label: 'Item Status',
               data: counts,
               backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(53, 162, 235, 0.5)'],
             },
@@ -73,4 +73,4 @@ export function Horbarchart_department() {
 }
 
 
-export default Horbarchart_department;
+export default BarchartisFilled;

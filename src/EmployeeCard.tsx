@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import BarchartGender from "./charts/barchart_gender";
 import BarchartEmptype from "./charts/barchart_emptype";
-
+import Horbarchart_department from "./charts/horbarchart_department";
+import BarchartisFilled from "./charts/barchart_isFilled";
 
 
 type RowData = {
@@ -65,13 +66,14 @@ const EmployeeCard = () => {
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <Horbarchart_department></Horbarchart_department>
+
           </div>
       </div>
       <div className="grid grid-cols-3 gap-4">
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <BarchartisFilled></BarchartisFilled>
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
