@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react';
 
 import {
     Chart as ChartJS,
@@ -10,7 +11,6 @@ import {
     Legend,
   } from 'chart.js';
   import { Bar } from 'react-chartjs-2';
-  import { faker } from '@faker-js/faker';
   
   ChartJS.register(
     CategoryScale,
@@ -34,26 +34,38 @@ import {
       },
     },
   };
+  const BarchartEmptype = () => {
+    const [chartData, setChartData] = useState<any>({
+      labels: [],
+      datasets: [],
+    });
   
-  const labels = ['PT', 'FT'];
+    useEffect(() => {
+      fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getEmpType.php')
+        .then((res) => res.json())
+        .then((data) => {
+          const labels = data.map((item: any) => item.empType);
+          const counts = data.map((item: any) => item.count);
   
-  export const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Employee Type Count',
-        data: labels.map(() => faker.number.int({ min: 0, max: 1000 })), 
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
-      }
-    ],
-  };
+          setChartData({
+            labels,
+            datasets: [
+              {
+                label: 'Employee Type',
+                data: counts,
+                backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+              },
+            ],
+          });
+        });
+    }, []);
 
-const BarchartEmptype = () => {
   return (
-      <div style={{ height: '400px', width: '100%' }}>
-        <Bar options={options} data={data} />
-      </div>
-    );
-}
+    <div style={{ height: '400px' }}>
+      <Bar options={options} data={chartData} />
+    </div>
+  );
+};
+
 
 export default BarchartEmptype
