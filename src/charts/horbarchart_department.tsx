@@ -22,6 +22,7 @@ ChartJS.register(
 
 export const options = {
   indexAxis: 'y' as const,
+  maintainAspectRatio: false,
   elements: {
     bar: {
       borderWidth: 2,

@@ -1,37 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
+  ArcElement,
   Tooltip,
   Legend,
+  Title
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export const options = {
   responsive: true,
-  maintainAspectRatio: false,
   plugins: {
     legend: { position: 'top' as const },
     title: {
       display: true,
-      text: 'Gender Distribution Chart',
+      text: 'Gender Distribution Pie Chart',
     },
   },
 };
 
-const BarchartGender = () => {
+const PieChartGender = () => {
   const [chartData, setChartData] = useState<any>({
     labels: [],
     datasets: [],
@@ -50,7 +40,9 @@ const BarchartGender = () => {
             {
               label: 'Gender Count',
               data: counts,
-              backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+              backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(53, 162, 235, 0.6)'],
+              borderColor: ['rgba(255, 99, 132, 1)', 'rgba(53, 162, 235, 1)'],
+              borderWidth: 1,
             },
           ],
         });
@@ -58,10 +50,10 @@ const BarchartGender = () => {
   }, []);
 
   return (
-    <div style={{ height: '400px' }}>
-      <Bar options={options} data={chartData} />
+    <div style={{ height: '400px', width: '400px', margin: '0 auto' }}>
+      <Pie options={options} data={chartData} />
     </div>
   );
 };
 
-export default BarchartGender;
+export default PieChartGender;

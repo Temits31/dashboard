@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import BarchartGender from "./charts/barchart_gender";
+import BarchartGender from "./charts/piechart_gender";
 import BarchartEmptype from "./charts/barchart_emptype";
 import Horbarchart_department from "./charts/horbarchart_department";
 import BarchartisFilled from "./charts/barchart_isFilled";
+import PieChartGender from "./charts/piechart_gender";
 
 
 type RowData = {
@@ -51,22 +52,23 @@ const EmployeeCard = () => {
 
   return (
     
-    <div className="bg-white shadow-xl rounded-2xl p-6 border border-gray-300 w-[90%] h-screen mx-auto mt-10">
+    <div className="bg-white shadow-xl rounded-2xl p-6 border border-gray-300 w-[90%] h-auto mx-auto mt-10">
       <h2 className="text-xl font-bold text-gray-800 text-center mb-4">Employee Overview</h2>
       <div className="grid grid-rows-3 gap-6">
 
       <div className="grid grid-cols-3 gap-4">
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
-            <BarchartGender></BarchartGender>
+            <PieChartGender></PieChartGender>
             
           </div>
-          <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
+          <div  className="bg-blue-100 shadow-md col-span-2 rounded-lg p-4 flex flex-col  items-center">
+          
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <BarchartEmptype></BarchartEmptype>
-          </div>
-          <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
-            <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+            <div className="w-[100%]">
             <Horbarchart_department></Horbarchart_department>
+
+
+            </div>
 
           </div>
       </div>
@@ -77,7 +79,8 @@ const EmployeeCard = () => {
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <BarchartEmptype></BarchartEmptype>
+
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
