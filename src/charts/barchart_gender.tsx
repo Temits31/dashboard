@@ -58,7 +58,7 @@ const BarchartGender = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ height: '400px' }}>
       <Bar options={options} data={chartData} />
     </div>
   );

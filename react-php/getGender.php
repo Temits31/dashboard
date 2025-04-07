@@ -11,12 +11,12 @@ $data = [];
 
 while ($row = $result->fetch_assoc()) {
   $data[] = [
-    "gender" => $row["gender"],
+    "gender" => $row["sex"],
     "count" => (int)$row["count"]
   ];
 }
 
-echo json_encode($genderdata);
+echo json_encode($data);
 
 $conn->close();
 ?>
