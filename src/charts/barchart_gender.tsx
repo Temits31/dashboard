@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +9,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 
 ChartJS.register(
   CategoryScale,
@@ -24,9 +23,7 @@ export const options = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
-    legend: {
-      position: 'top' as const,
-    },
+    legend: { position: 'top' as const },
     title: {
       display: true,
       text: 'Gender Distribution Chart',
@@ -34,23 +31,35 @@ export const options = {
   },
 };
 
-const labels = ['Male', 'Female'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Gender Count',
-      data: labels.map(() => faker.number.int({ min: 0, max: 1000 })), 
-      backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
-    }
-  ],
-};
-
 const BarchartGender = () => {
+  const [chartData, setChartData] = useState<any>({
+    labels: [],
+    datasets: [],
+  });
+
+  useEffect(() => {
+    fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getGender.php')
+      .then((res) => res.json())
+      .then((data) => {
+        const labels = data.map((item: any) => item.gender);
+        const counts = data.map((item: any) => item.count);
+
+        setChartData({
+          labels,
+          datasets: [
+            {
+              label: 'Gender Count',
+              data: counts,
+              backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+            },
+          ],
+        });
+      });
+  }, []);
+
   return (
-    <div style={{ height: '400px', width: '100%' }}>
-      <Bar options={options} data={data} />
+    <div>
+      <Bar options={options} data={chartData} />
     </div>
   );
 };
