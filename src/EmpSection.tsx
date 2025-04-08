@@ -16,13 +16,13 @@ const EmpSection = () => {
             <div className="text-xl font-semibold text-center py-[10px]">
             <hr className="ml-[30%] w-screen pr-10"/>
             Plantilla Details</div>
-            <div className="text-xl font-semibold text-center pt-[35%]">
+            <div className="text-xl font-semibold text-center pt-[40%]">
             <hr className="ml-[30%] w-screen pr-10"/>
             Employment Details</div>
             <div className="text-xl font-semibold text-center pt-[100%]">
             <hr className="ml-[30%] w-screen pr-10"/>
             Personal Details</div>
-            <div className="text-xl font-semibold text-center py-[80%]">
+            <div className="text-xl font-semibold text-center py-[85%]">
               <hr className="ml-[30%] w-screen pr-10"/>
               Appointment Details</div>
           </div>

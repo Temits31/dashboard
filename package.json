@@ -14,7 +14,8 @@
     "faker": "^6.6.6",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

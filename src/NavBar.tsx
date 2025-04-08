@@ -2,20 +2,23 @@ import React from 'react';
 
 const NavBar = () => {
   return (
-    <nav className="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 w-full z-50">
+    <header className="">
+<nav className=" flex justify-between items-center fixed w-[100%] mx-auto bg-white shadow-md p-4 px-[90px] py-[24px] z-50">
 
-      <div className="text-xl font-bold text-gray-800">Dashboard - PJG</div>
+<div className="text-xl font-bold text-[#32A363]">Dashboard - PJG</div>
 
-      <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-        <li><a href="#" className="hover:text-blue-500">Home</a></li>
-        <li><a href="#" className="hover:text-blue-500">Employees</a></li>
-        <li><a href="#" className="hover:text-blue-500">Reports</a></li>
-        <li><a href="#" className="hover:text-blue-500">Import</a></li>
-        <li><a href="#" className="hover:text-blue-500">Settings</a></li>
-      </ul>
+<ul className="hidden md:flex space-x-20 text-black font-medium">
+  <li><a href="#" className="hover:text-[#32A363]">Dashboard</a></li>
+  <li><a href="#" className="hover:text-[#32A363]">Employees</a></li>
+  <li><a href="#" className="hover:text-[#32A363]">Reports</a></li>
+  <li><a href="#" className="hover:text-[#32A363]">Import</a></li>
+  <li><a href="#" className="hover:text-[#32A363]">Settings</a></li>
+</ul>
 
-     
-    </nav>
+
+</nav>
+    </header>
+    
   );
 };
 
