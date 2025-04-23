@@ -1,0 +1,22 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+
+require "server.php";
+
+$sql = "SELECT salary_grade, COUNT(*) as count FROM tbl_dashboard GROUP BY  salary_grade";
+$result = $conn->query($sql);
+
+$data = [];
+
+while ($row = $result->fetch_assoc()) {
+  $data[] = [
+    "salary_grade" => $row["salary_grade"],
+    "count" => (int)$row["count"]
+  ];
+}
+
+echo json_encode($data);
+
+$conn->close();
+?>

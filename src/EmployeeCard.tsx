@@ -4,7 +4,10 @@ import BarchartEmptype from "./charts/barchart_emptype";
 import Horbarchart_department from "./charts/horbarchart_department";
 import BarchartisFilled from "./charts/barchart_isFilled";
 import PieChartGender from "./charts/piechart_gender";
-
+import PieChartCS from "./charts/piechart_cselig";
+import PieChartDivision from "./charts/piechart_division";
+import PieChartSG from "./charts/piechart_SG";
+import BarchartAppointStat from "./charts/barchart_appoint";
 
 type RowData = {
   item_number: string;
@@ -84,21 +87,31 @@ const EmployeeCard = () => {
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <PieChartCS></PieChartCS>
           </div>
       </div>
       <div className="grid grid-cols-3 gap-4">
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <PieChartDivision></PieChartDivision>
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <PieChartSG></PieChartSG>
           </div>
           <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Card</h3>
-            <p className="text-sm text-gray-500">Details here</p>
+            <BarchartAppointStat></BarchartAppointStat>
+
+          </div>
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+          <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center col-span-2">
+            <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+         </div>
+          <div  className="bg-blue-100 shadow-md rounded-lg p-4 flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+
           </div>
       </div>
       </div>
