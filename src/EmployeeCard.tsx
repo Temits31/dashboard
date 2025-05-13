@@ -8,6 +8,8 @@ import PieChartCS from "./charts/piechart_cselig";
 import PieChartDivision from "./charts/piechart_division";
 import PieChartSG from "./charts/piechart_SG";
 import BarchartAppointStat from "./charts/barchart_appoint";
+import EmpSection from "./EmpSection";
+import Reports from "./Reports";
 
 type RowData = {
   item_number: string;
@@ -54,6 +56,7 @@ const EmployeeCard = () => {
   }, []);
 
   return (
+    <>
     
     <div className="bg-white shadow-xl rounded-2xl p-6 border border-gray-300 w-[90%] h-auto mx-auto mt-10">
       <h2 className="text-xl font-bold text-gray-800 text-center mb-4">Employee Overview</h2>
@@ -191,7 +194,17 @@ const EmployeeCard = () => {
           </tbody>
         </table>
       </div>
+      
     </div>
+    <div className="pt-9">
+    <div>
+      <EmpSection />
+    </div>
+    <div className="max-w-full mt-10">
+      <Reports />
+    </div>
+  </div>
+  </>
   );
 };
 

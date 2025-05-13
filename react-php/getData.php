@@ -11,7 +11,8 @@ $sql = "SELECT item_number, pos_title, salary_grade, stepSal,
         isUnfilled, division, department, lastName, firstName,
         middleName, sex, dateofBirth, age, tinNumber,
         origAppointDate, lastPromotionDate, appointStatus, CSElig
-        FROM tbl_dashboard"; 
+        FROM tbl_dashboard WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard)"; 
 
 $result = $conn->query($sql);
 

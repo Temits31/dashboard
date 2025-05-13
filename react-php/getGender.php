@@ -4,7 +4,9 @@ header("Content-Type: application/json");
 
 require "server.php";
 
-$sql = "SELECT sex, COUNT(*) as count FROM tbl_dashboard GROUP BY sex";
+$sql = "SELECT sex, COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard
+) GROUP BY sex";
 $result = $conn->query($sql);
 
 $data = [];

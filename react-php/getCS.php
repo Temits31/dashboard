@@ -4,7 +4,8 @@ header("Content-Type: application/json");
 
 require "server.php";
 
-$sql = "SELECT CSElig, COUNT(*) as count FROM tbl_dashboard GROUP BY CSElig";
+$sql = "SELECT CSElig, COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard) GROUP BY CSElig";
 $result = $conn->query($sql);
 
 $data = [];

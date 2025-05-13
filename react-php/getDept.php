@@ -4,7 +4,9 @@ header("Content-Type: application/json");
 
 require "server.php";
 
-$sql = "SELECT department, COUNT(*) as count FROM tbl_dashboard GROUP BY department";
+$sql = "SELECT department, COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard
+) GROUP BY department";
 $result = $conn->query($sql);
 
 $data = [];
@@ -19,4 +21,3 @@ while ($row = $result->fetch_assoc()) {
 echo json_encode($data);
 
 $conn->close();
-?>

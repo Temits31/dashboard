@@ -1,0 +1,33 @@
+Item Number: OSEC-DOHB-MDSPT3-150001-2011
+Position Title: MEDICAL SPECIALIST III (PART-TIME)
+Salary Grade: 24
+Step Salary: 1
+Is First Level: 0
+Is Second Level: 1
+Is Exec Level: 0
+Employee Type: PT
+Authorized Annual Salary: 589110
+Actual Annual Salary: 589110
+Monthly Salary: 49092.5
+Area Code: 30
+Area Type: R
+Level: T
+Attribution: 320101100003000
+Incumbent Full Name: YAP, MARY CLARIBELLE SANIDAD
+Is Filled: 1
+Is Unfilled: 0
+Division: MEDICAL
+Department: ANESTHESIA
+Last Name: YAP
+First Name: MARY CLARIBELLE
+Middle Name: SANIDAD
+Sex: F
+Date of Birth: 
+Age: 
+TIN Number: 
+Original Appointment Date: 
+Last Promotion Date: 
+Appointment Status: P
+CS Eligibility: RA1080
+Date Import ID: 1694
+

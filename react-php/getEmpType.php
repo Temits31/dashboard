@@ -4,7 +4,13 @@ header("Content-Type: application/json");
 
 require "server.php";
 
-$sql = "SELECT empType, COUNT(*) as count FROM tbl_dashboard GROUP BY empType";
+$sql = "SELECT empType, COUNT(*) AS count
+FROM tbl_dashboard
+WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard
+)
+GROUP BY empType
+ORDER BY empType";
 $result = $conn->query($sql);
 
 $data = [];

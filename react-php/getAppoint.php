@@ -4,7 +4,9 @@ header("Content-Type: application/json");
 
 require "server.php";
 
-$sql = "SELECT appointStatus, COUNT(*) as count FROM tbl_dashboard GROUP BY appointStatus";
+$sql = "SELECT appointStatus, COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = (
+  SELECT MAX(date_imported_id) FROM tbl_dashboard
+) GROUP BY appointStatus";
 $result = $conn->query($sql);
 
 $data = [];
