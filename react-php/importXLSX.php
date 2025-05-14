@@ -10,7 +10,13 @@ require "server.php";
 try {
     $data = json_decode(file_get_contents('php://input'), true);
 
-
+    function excelSerialToDate($serial)
+    {
+        if (!is_numeric($serial)) return null;
+        $origin = new DateTime("1899-12-30");
+        $origin->modify("+{$serial} days");
+        return $origin->format("Y-m-d");
+    }
     if ($data && is_array($data)) {
 
         $today = new DateTime();
@@ -28,7 +34,7 @@ try {
             incumbetFullName, isFilled, isUnfilled, division, department, lastName, firstName, middleName, sex,
             dateofBirth, age, tinNumber, origAppointDate, lastPromotionDate, appointStatus, CSElig, date_imported_id
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
 
         $dbstmt = $conn->prepare($sql);
 
@@ -62,32 +68,41 @@ try {
             $firstName = $row[21] ?? null;
             $middleName = $row[22] ?? null;
             $sex = $row[23] ?? null;
-            $day =  null;
-            $month =  null;
-            $year = null;
+            $dateofBirthRaw = $row[24] ?? null;
+            $origAppointDateRaw = $row[26] ?? null;
+            $lastPromotionDateRaw = $row[27] ?? null;
+            if (is_numeric($dateofBirthRaw)) {
+                $dateofBirth = excelSerialToDate($dateofBirthRaw);
+            } else {
+                $dateParts = explode('/', $dateofBirthRaw);
+                if (count($dateParts) === 3) {
+                    list($month, $day, $year) = $dateParts;
+                    if (checkdate((int)$month, (int)$day, (int)$year)) {
+                        $dateofBirth = sprintf('%04d-%02d-%02d', $year, $month, $day);
+                    } else {
+                        error_log("Invalid DOB: $dateofBirthRaw");
+                    }
+                } else {
+                    error_log("DOB format invalid: $dateofBirthRaw");
+                }
+            }
 
-            if (
-                is_numeric($day) && $day >= 1 && $day <= 31 &&
-                is_numeric($month) && $month >= 1 && $month <= 12 &&
-                is_numeric($year) && $year > 1900 && $year < 2100
-            ) {
-                $dateofBirth = sprintf('%04d-%02d-%02d', $year, $month, $day);
+            if ($dateofBirth) {
                 try {
                     $birthDate = new DateTime($dateofBirth);
                     $age = $birthDate->diff(new DateTime('today'))->y;
                 } catch (Exception $e) {
-                    $dateofBirth = null;
-                    $age = null;
+                    error_log("Error parsing DOB: " . $e->getMessage());
                 }
-            } else {
-                $dateofBirth = null;
-                $age = null;
             }
-            $tinNumber = $row[29] ?? null;
-            $origAppointDate = !empty($row[30]) ? date('Y-m-d', strtotime($row[30])) : null;
-            $lastPromotionDate = !empty($row[31]) ? date('Y-m-d', strtotime($row[31])) : null;
-            $appointStatus = $row[26] ?? null;
-            $CSElig = $row[27] ?? null;
+
+            $origAppointDate = is_numeric($origAppointDateRaw) ? excelSerialToDate($origAppointDateRaw) : $origAppointDateRaw;
+            $lastPromotionDate = is_numeric($lastPromotionDateRaw) ? excelSerialToDate($lastPromotionDateRaw) : $lastPromotionDateRaw;
+
+
+            $tinNumber = $row[25] ?? null;
+            $appointStatus = $row[28] ?? null;
+            $CSElig = $row[29] ?? null;
 
             $dbstmt->bind_param(
                 'ssiiiiisdddsssssiisssssssisssssi',
@@ -125,11 +140,10 @@ try {
                 $date_id
             );
             $dbstmt->execute();
-            
         }
 
 
-        
+
 
 
         echo json_encode(['status' => 'success']);

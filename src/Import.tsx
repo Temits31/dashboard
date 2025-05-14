@@ -52,11 +52,7 @@ const Import = () => {
       );
   
       const transformedData = filteredData.map((row) => {
-        const birthYear = row[29];
-        const birthMonth = row[28];
-        const birthDay = row[27];
-        const dob = `${birthYear}-${String(birthMonth).padStart(2, "0")}-${String(birthDay).padStart(2, "0")}`;
-  
+       
         return [
           row[1],  // item_number
           row[2],  // pos_title
@@ -82,14 +78,18 @@ const Import = () => {
           row[22], // firstName
           row[23], // middleName
           row[24], // sex
-          dob,     // dateofBirth (formatted from 3 columns)
-          row[33], // tinNumber
-          row[34], // origAppointDate
-          row[35], // lastPromotionDate
-          row[36], // appointStatus
-          row[37], // CSElig
+          row[25], // birthdate
+          row[31], // tinNumber
+          row[32], // origAppointDate
+          row[33], // lastPromotionDate
+          row[34], // appointStatus
+          row[35], // CSElig
+        console.log(row[25])
+
         ];
+
       });
+
   
       function chunkArray(arr: any[], chunkSize: number) {
         const chunks = [];
