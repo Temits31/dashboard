@@ -53,7 +53,7 @@ import {
               {
                 label: 'Appointment Status Type',
                 data: counts,
-                backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(53, 162, 235, 0.5)'],
+                backgroundColor:['#134611', '#f3de2c'],
               },
             ],
           });

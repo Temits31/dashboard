@@ -40,8 +40,8 @@ const PieChartSG = () => {
             {
               label: 'Salary Grade',
               data: counts,
-              backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(53, 162, 235, 0.6)'],
-              borderColor: ['rgba(255, 99, 132, 1)', 'rgba(53, 162, 235, 1)'],
+              backgroundColor: ['#134611','#fbb02d','#5c8001','#7cb518','#f3de2c','#fb6107'],
+              borderColor: ['#134611','#fbb02d','#5c8001','#7cb518','#f3de2c','#fb6107'],
               borderWidth: 1,
             },
           ],

@@ -34,18 +34,21 @@ const PieChartGender = () => {
         const labels = data.map((item: any) => item.gender);
         const counts = data.map((item: any) => item.count);
 
+        
+
         setChartData({
           labels,
           datasets: [
             {
               label: 'Gender Count',
               data: counts,
-              backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(53, 162, 235, 0.6)'],
-              borderColor: ['rgba(255, 99, 132, 1)', 'rgba(53, 162, 235, 1)'],
+              backgroundColor: ['#134611', '#f3de2c'],
+              borderColor: ['#134611', '#f3de2c'],
               borderWidth: 1,
             },
           ],
         });
+       
       });
   }, []);
 

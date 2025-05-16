@@ -29,6 +29,16 @@ export const options = {
     },
   },
   responsive: true,
+  layout: {
+    padding: {
+      right: 40,
+      left: 40,
+      top: 0,
+      bottom: 0,
+    },
+  },
+
+  
   plugins: {
     legend: {
       position: 'right' as const,
@@ -37,7 +47,9 @@ export const options = {
       display: true,
       text: 'Department',
     },
+    
   },
+ 
 };
 
 
@@ -60,7 +72,8 @@ export function Horbarchart_department() {
             {
               label: 'Departments',
               data: counts,
-              backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(53, 162, 235, 0.5)'],
+              backgroundColor: ['#134611','#fbb02d','#5c8001','#7cb518','#f3de2c','#fb6107'],
+              
             },
           ],
         });

@@ -18,11 +18,11 @@ $data = [];
 if ($row = $result->fetch_assoc()) {
   $data[] = [
     "status" => "Filled",
-    "count" => (int)$row["filled"]
+    "filled" => (int)$row["filled"]
   ];
   $data[] = [
     "status" => "Unfilled",
-    "count" => (int)$row["unfilled"]
+    "unfilled" => (int)$row["unfilled"]
   ];
 }
 

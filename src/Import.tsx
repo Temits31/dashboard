@@ -23,7 +23,7 @@ const Import = () => {
       console.log("Workbook loaded:", workbook);
       console.log("Sheet names in the workbook:", workbook.SheetNames);
 
-      const sheetName = "PSIPOP BLANK";
+      const sheetName = "PSIPOP";
       const sheet = workbook.Sheets[sheetName];
 
       if (!sheet) {

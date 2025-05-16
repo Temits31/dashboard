@@ -51,22 +51,30 @@ export function BarchartisFilled() {
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item: any) => item.status);
-        const counts = data.map((item: any) => item.count);
+        const filled = data.map((item: any) => item.filled);
+        const unfilled = data.map((item: any) => item.unfilled);
+
 
         setChartData({
           labels,
           datasets: [
             {
-              label: 'Item Status',
-              data: counts,
-              backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(53, 162, 235, 0.5)'],
+              label: "Filled",
+              data: filled,
+              backgroundColor: "#134611"
             },
+            {
+              label: "Unfilled",
+              data: unfilled,
+              backgroundColor: "#f3de2c"
+            }
+            
           ],
         });
       });
   }, []);
    return (
-      <div>
+      <div className='w-full h-full'>
         <Bar options={options} data={chartData} />
       </div>
     );
