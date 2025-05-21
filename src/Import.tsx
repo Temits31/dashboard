@@ -99,7 +99,7 @@ const Import = () => {
         return chunks;
       }
   
-      const chunkedData = chunkArray(transformedData, 10);
+      const chunkedData = chunkArray(transformedData, 100);
   
       for (let i = 0; i < chunkedData.length; i++) {
         const chunk = chunkedData[i];

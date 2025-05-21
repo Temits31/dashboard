@@ -17,42 +17,50 @@ const Reports = () => {
     {
       component: <PieChartGender />,
       title: "Gender Distribution",
-      description: "This chart shows the gender distribution of employees.",
+      description:
+        "This chart provides a visual representation of the gender composition of employees within the organization. It highlights the proportional distribution of male and female employees, offering insights into gender diversity across the workforce.",
     },
     {
       component: <Horbarchart_department />,
-      title: "Department Stats",
-      description: "Displays number of employees per department.",
+      title: "Department Statistics",
+      description:
+        "This chart illustrates the number of employees distributed across various departments in the organization. It serves as a useful tool for understanding departmental staffing levels and identifying areas with higher or lower workforce concentration.",
     },
     {
       component: <BarchartisFilled />,
-      title: "Position Status",
-      description: "Shows whether positions are filled or unfilled.",
+      title: "Position Status Overview",
+      description:
+        "This chart displays the current occupancy status of positions within the organization. It distinguishes between filled and unfilled positions, helping stakeholders assess staffing adequacy and identify vacancies that may require recruitment.",
     },
     {
       component: <BarchartEmptype />,
-      title: "Employment Type",
-      description: "Represents different employment types in the organization.",
+      title: "Employment Type Distribution",
+      description:
+        "This chart categorizes employees based on their type of employment, such as permanent, contractual, or temporary. It helps provide a clear understanding of the composition of the workforce in terms of employment arrangements.",
     },
     {
       component: <PieChartCS />,
-      title: "Civil Service Eligibility Chart",
-      description: "Represents different employment types in the organization.",
+      title: "Civil Service Eligibility",
+      description:
+        "This chart presents data on the civil service eligibility of employees. It classifies staff members based on their eligibility status, enabling analysis of compliance with government employment requirements and qualifications.",
     },
     {
       component: <PieChartDivision />,
-      title: "Division Distribution Chart",
-      description: "Represents different employment types in the organization.",
+      title: "Division Distribution",
+      description:
+        "This chart shows the number of employees allocated to each division within the organization. It allows for a better understanding of workforce distribution across different operational units or sectors.",
     },
     {
       component: <PieChartSG />,
-      title: "Salary Grade Chart",
-      description: "Represents different employment types in the organization.",
+      title: "Salary Grade Distribution",
+      description:
+        "This chart illustrates the distribution of employees according to their respective salary grades. It offers insights into the salary structure and the prevalence of specific salary levels within the workforce.",
     },
     {
       component: <BarchartAppointStat />,
-      title: "Appointment Status Chart",
-      description: "Represents different employment types in the organization.",
+      title: "Appointment Status Summary",
+      description:
+        "This chart displays the different appointment statuses of employees, such as permanent, temporary, or probationary. It supports human resource planning by highlighting the stability and nature of employment contracts within the organization.",
     },
   ];
 
@@ -141,18 +149,18 @@ const Reports = () => {
               <button
                 onClick={handleExportChart}
                 style={{ position: "relative", zIndex: 1000 }}
-                className="mt-4 px-4 py-2 bg-green-700 text-white rounded"
+                className="mt-4 px-4 py-2 bg-[#1F4529] hover:bg-[#5F8B4C]  text-white rounded"
               >
                 Export to Word
               </button>
             </div>
 
             {/* RIGHT: Description */}
-            <div className="w-full md:w-1/2 flex flex-col justify-center text-[#1C5C41] px-4">
+            <div className="w-full md:w-1/2 flex flex-col justify-center bg-[#5F8B4C] text-white px-4">
               <h2 className="text-2xl font-bold mb-2">
                 {charts[current].title}
               </h2>
-              <p className="text-md text-gray-700">
+              <p className="text-md text-white">
                 {charts[current].description}
               </p>
             </div>
@@ -162,15 +170,15 @@ const Reports = () => {
           <div className="absolute inset-0 flex items-center justify-between px-2">
             <button
               onClick={handlePrev}
-              className="p-2 rounded-full shadow bg-white/80 text-gray-800 hover:bg-white"
+              className="p-2 rounded-full shadow bg-white/80 text-gray-800 hover:bg-[#1F4529] hover:text-white"
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={42} />
             </button>
             <button
               onClick={handleNext}
-              className="p-2 rounded-full shadow bg-white/80 text-gray-800 hover:bg-white"
+              className="p-2 rounded-full shadow bg-white/80 text-gray-800 hover:bg-[#1F4529] hover:text-white"
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={42} />
             </button>
           </div>
         </div>

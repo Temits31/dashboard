@@ -51,6 +51,25 @@ type RowData = {
 const EmployeeCard = () => {
   const [rowdata, setRowdata] = useState<RowData[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [importedId, setImportedId] = useState("");
+  const [importeddata, setImporteddata] = useState<any[]>([]);
+  useEffect(() => {
+    fetch(
+      "http://localhost/LMSv1/Dashboard/my-app/react-php/getAllImportedId.php"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setImporteddata(data);
+        const stored = sessionStorage.getItem("importedId");
+        if (stored) {
+          setImportedId(stored);
+        } else if (data.length > 0) {
+          const latest = data[0].date_imported_id;
+          setImportedId(latest);
+          sessionStorage.setItem("importedId", latest);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost/LMSv1/Dashboard/my-app/react-php/getData.php")
@@ -102,11 +121,74 @@ const EmployeeCard = () => {
     const blob = new Blob([wbout], { type: "application/octet-stream" });
     saveAs(blob, "filtered_report.xlsx");
   };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!importedId) {
+      console.error("No importedId selected.");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        "http://localhost/LMSv1/Dashboard/my-app/react-php/set_session.php",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ importedId }),
+        }
+      );
+
+      const result = await res.json();
+      if (result.success) {
+        console.log("Session updated:", importedId);
+
+        window.location.reload();
+    
+      } else {
+        console.error("Session update failed:", result.message);
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+    }
+  };
 
   return (
     <>
       <div className="bg-[#5F8B4C]  rounded-2xl p-6 w-[90%] h-auto mx-auto mt-10 mb-10">
-        <div className="grid grid-rows-3 gap-6 mt-10">
+        <div className="flex justify-center items-center mt-10 w-full p-2 bg-green-900">
+          <form onSubmit={handleSubmit}>
+            <select
+              value={importedId}
+              onChange={(e) => {
+                const selectedId = e.target.value;
+                setImportedId(selectedId);
+              }}
+              className="p-2 rounded text-black"
+            >
+              <option value="">-- Select Imported Date --</option>
+              {importeddata.map((item) => (
+                <option
+                  key={item.date_imported_id}
+                  value={item.date_imported_id}
+                >
+                  {item.date_imported}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="submit"
+              className="ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="grid grid-rows-4 gap-6 mt-10">
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
               <h3 className="text-lg font-semibold text-gray-700">
@@ -245,12 +327,12 @@ const EmployeeCard = () => {
           </select>
         </div>
         <div>
-        <button
-          onClick={handleExport}
-          className="px-4 py-2 bg-green-600 text-white rounded mt-2"
-        >
-          Export Filtered Data
-        </button>
+          <button
+            onClick={handleExport}
+            className="px-4 py-2 bg-green-600 text-white rounded mt-2"
+          >
+            Export Filtered Data
+          </button>
         </div>
 
         <div className="overflow-x-auto mt-6">
@@ -337,7 +419,6 @@ const EmployeeCard = () => {
             </table>
           </div>
         </div>
-        
       </div>
 
       <div className="pt-9">
