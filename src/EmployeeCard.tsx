@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import BarchartGender from "./charts/piechart_gender";
+import GenderSummary from "./charts/piechart_gender";
 import BarchartEmptype from "./charts/barchart_emptype";
 import Horbarchart_department from "./charts/horbarchart_department";
 import BarchartisFilled from "./charts/barchart_isFilled";
@@ -195,7 +195,7 @@ const EmployeeCard = () => {
               <h3 className="text-lg font-semibold text-gray-700">
                 Gender Distribution Chart
               </h3>
-              <PieChartGender />
+              <GenderSummary />
             </div>
 
             <div className="bg-shadow-md bg-[#A9C46C] col-span-2 rounded-lg p-4 flex flex-col items-center">

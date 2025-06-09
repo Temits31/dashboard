@@ -77,7 +77,7 @@ const Reports = () => {
       const dataUrl = await toPng(chartElement);
 
       const response = await fetch(
-        "http://localhost/LMSv1/Dashboard/my-app/react-php/printINDchart.php",
+        "http://localhost/PJG/Dashboard/dashboard/react-php/printINDchart.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

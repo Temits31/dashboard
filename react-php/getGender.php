@@ -14,30 +14,36 @@ if (!isset($_SESSION["importedId"])) {
     $row = $fallbackResult->fetch_assoc();
     $_SESSION["importedId"] = $row["date_imported_id"];
   } else {
-    echo json_encode([]); 
+    echo json_encode(["male" => 0, "female" => 0, "others" => 0]); 
     exit();
   }
 }
 
 $date_imported_id = $_SESSION["importedId"];
 
-$sql = "SELECT sex, COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = ? GROUP BY sex";
+$stmtM = $conn->prepare("SELECT COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = ? AND sex = 'M'");
+$stmtM->bind_param("i", $date_imported_id);
+$stmtM->execute();
+$resultM = $stmtM->get_result()->fetch_assoc();
+$maleCount = (int)$resultM['count'];
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $date_imported_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$stmtF = $conn->prepare("SELECT COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = ? AND sex = 'F'");
+$stmtF->bind_param("i", $date_imported_id);
+$stmtF->execute();
+$resultF = $stmtF->get_result()->fetch_assoc();
+$femaleCount = (int)$resultF['count'];
 
-$data = [];
+$stmtO = $conn->prepare("SELECT COUNT(*) as count FROM tbl_dashboard WHERE date_imported_id = ? AND sex NOT IN ('M', 'F')");
+$stmtO->bind_param("i", $date_imported_id);
+$stmtO->execute();
+$resultO = $stmtO->get_result()->fetch_assoc();
+$othersCount = (int)$resultO['count'];
 
-while ($row = $result->fetch_assoc()) {
-  $data[] = [
-    "gender" => $row["sex"],
-    "count" => (int)$row["count"]
-  ];
-}
-
-echo json_encode($data);
+echo json_encode([
+  "male" => $maleCount,
+  "female" => $femaleCount,
+  "others" => $othersCount
+]);
 
 $conn->close();
 ?>

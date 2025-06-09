@@ -19,27 +19,27 @@ const Import = () => {
     reader.onload = (e) => {
       const ab = e.target?.result;
       const workbook = XLSX.read(ab, { type: "array" });
-
+  
       console.log("Workbook loaded:", workbook);
       console.log("Sheet names in the workbook:", workbook.SheetNames);
-
-      const sheetName = "PSIPOP";
-      const sheet = workbook.Sheets[sheetName];
-
+  
+      const firstSheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[firstSheetName];
+  
       if (!sheet) {
-        console.error(`Sheet "${sheetName}" not found`);
+        console.error(`Sheet "${firstSheetName}" not found`);
         return;
       }
-
+  
       console.log("Sheet Data:", sheet);
-
+  
       let jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
       jsonData = jsonData.slice(7);
       console.log("Raw JSON Data:", jsonData);
-
+  
       const dataFromB8 = jsonData;
       console.log("Data from B8:", dataFromB8);
-
+  
       setData(dataFromB8);
     };
     reader.readAsArrayBuffer(file);
