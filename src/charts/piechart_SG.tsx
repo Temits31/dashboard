@@ -17,7 +17,18 @@ export const options = {
     title: {
       display: true,
       text: 'Salary Grade Chart',
+      font: {
+        size: 24,
+      },
     },
+    tooltip: {
+      bodyFont: {
+        size: 18,
+      },
+      titleFont: {
+        size: 18,
+      },
+    }
   },
 };
 
@@ -28,7 +39,7 @@ const PieChartSG = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getSG.php')
+    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getSG.php')
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item: any) => item.salary_grade);

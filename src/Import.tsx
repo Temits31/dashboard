@@ -106,7 +106,7 @@ const Import = () => {
         console.log(`Uploading chunk ${i + 1} with ${chunk.length} rows`);
   
         const response = await fetch(
-          "http://localhost/LMSv1/Dashboard/my-app/react-php/importXLSX.php",
+          "http://localhost/PJG/dashboard/dashboard/react-php/importXLSX.php",
           {
             method: "POST",
             headers: {

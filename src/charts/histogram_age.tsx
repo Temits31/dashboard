@@ -21,31 +21,20 @@ ChartJS.register(
 );
 
 export const options = {
-  indexAxis: 'y' as const,
-  maintainAspectRatio: false,
+  indexAxis: 'x' as const,
   elements: {
     bar: {
       borderWidth: 2,
     },
   },
   responsive: true,
-  layout: {
-    padding: {
-      right: 40,
-      left: 40,
-      top: 0,
-      bottom: 0,
-    },
-  },
-
-  
   plugins: {
     legend: {
-      position: 'right' as const,
+      position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Department',
+      text: 'Age Distribution',
       font: {
         size: 24,
       },
@@ -58,44 +47,46 @@ export const options = {
         size: 18,
       },
     }
-    
   },
- 
 };
 
 
-export function Horbarchart_department() {
+export function Histogram_age() {
   const [chartData, setChartData] = useState<any>({
     labels: [],
     datasets: [],
   });
 
   useEffect(() => {
-    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getDept.php')
+    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getAge.php', {
+        method: 'GET',
+        credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
-        const labels = data.map((item: any) => item.department);
+        const labels = data.map((item: any) => item.ageGroup);
         const counts = data.map((item: any) => item.count);
+
 
         setChartData({
           labels,
           datasets: [
             {
-              label: 'Departments',
+              label: "Employee Age",
               data: counts,
-              backgroundColor: ['#134611','#fbb02d','#5c8001','#7cb518','#f3de2c','#fb6107'],
-              
-            },
+              backgroundColor: "#134611"
+            }
+            
           ],
         });
       });
   }, []);
    return (
-      <div>
+      <div className='w-full h-full'>
         <Bar options={options} data={chartData} />
       </div>
     );
 }
 
 
-export default Horbarchart_department;
+export default Histogram_age;

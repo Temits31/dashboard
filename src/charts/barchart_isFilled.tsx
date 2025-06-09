@@ -35,7 +35,18 @@ export const options = {
     title: {
       display: true,
       text: 'isFilled',
+      font: {
+        size: 24,
+      },
     },
+    tooltip: {
+      bodyFont: {
+        size: 18,
+      },
+      titleFont: {
+        size: 18,
+      },
+    }
   },
 };
 
@@ -47,7 +58,7 @@ export function BarchartisFilled() {
   });
 
   useEffect(() => {
-    fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getisFilled.php')
+    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getisFilled.php')
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item: any) => item.status);

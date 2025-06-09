@@ -9,6 +9,7 @@ import PieChartDivision from "./charts/piechart_division";
 import PieChartSG from "./charts/piechart_SG";
 import BarchartAppointStat from "./charts/barchart_appoint";
 import EmpSection from "./EmpSection";
+import Histogram_age from "./charts/histogram_age";
 import Reports from "./Reports";
 import DepartmentFilledChart from "./charts/grouped_chart_filled";
 import * as XLSX from "xlsx";
@@ -55,7 +56,7 @@ const EmployeeCard = () => {
   const [importeddata, setImporteddata] = useState<any[]>([]);
   useEffect(() => {
     fetch(
-      "http://localhost/LMSv1/Dashboard/my-app/react-php/getAllImportedId.php"
+      "http://localhost/PJG/dashboard/dashboard/react-php/getAllImportedId.php"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -72,7 +73,7 @@ const EmployeeCard = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost/LMSv1/Dashboard/my-app/react-php/getData.php")
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getData.php")
       .then((res) => res.json())
       .then((data) => setRowdata(data))
       .catch((err) => console.error("Error fetching data:", err));
@@ -131,7 +132,7 @@ const EmployeeCard = () => {
 
     try {
       const res = await fetch(
-        "http://localhost/LMSv1/Dashboard/my-app/react-php/set_session.php",
+        "http://localhost/PJG/dashboard/dashboard/react-php/set_session.php",
         {
           method: "POST",
           credentials: "include",
@@ -259,6 +260,18 @@ const EmployeeCard = () => {
                 Filled and Unfilled Items per Department
               </h3>
               <DepartmentFilledChart></DepartmentFilledChart>
+            </div>
+            <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
+              <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center col-span-2">
+              <h3 className="text-lg font-semibold text-gray-700">
+                Filled and Unfilled Items per Department
+              </h3>
+             < Histogram_age />
+
             </div>
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
               <h3 className="text-lg font-semibold text-gray-700">Card</h3>

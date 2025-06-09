@@ -21,7 +21,7 @@ const DepartmentFilledChart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost/LMSv1/Dashboard/my-app/react-php/getFilledUnfilledDept.php")
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getFilledUnfilledDept.php")
       .then((res) => res.json())
       .then((data) => {
         const departments = data.map((item: any) => item.department);
@@ -61,7 +61,18 @@ const DepartmentFilledChart = () => {
       },
       title: {
         display: true,
-        text: "Filled vs Unfilled Items per Department"
+        text: "Filled vs Unfilled Items per Department",
+        font: {
+          size: 24,
+        },
+      },
+      tooltip: {
+        bodyFont: {
+          size: 18,
+        },
+        titleFont: {
+          size: 18,
+        },
       }
     },
     scales: {

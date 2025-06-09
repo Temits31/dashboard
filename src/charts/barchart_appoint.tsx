@@ -31,7 +31,18 @@ import {
       title: {
         display: true,
         text: 'Appointment Status Chart',
+        font: {
+          size: 24,
+        },
       },
+      tooltip: {
+        bodyFont: {
+          size: 18,
+        },
+        titleFont: {
+          size: 18,
+        },
+      }
     },
   };
   const BarchartAppointStat = () => {
@@ -41,7 +52,7 @@ import {
     });
   
     useEffect(() => {
-      fetch('http://localhost/LMSv1/Dashboard/my-app/react-php/getAppoint.php')
+      fetch('http://localhost/PJG/dashboard/dashboard/react-php/getAppoint.php')
         .then((res) => res.json())
         .then((data) => {
           const labels = data.map((item: any) => item.appointStatus);

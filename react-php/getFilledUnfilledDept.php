@@ -18,6 +18,9 @@ if (!isset($_SESSION["importedId"])) {
     exit();
   }
 }
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 
 $date_imported_id = $_SESSION["importedId"];
 
@@ -50,5 +53,6 @@ if ($result->num_rows > 0) {
 }
 
 echo json_encode($data);
+
 $conn->close();
 ?>
