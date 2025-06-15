@@ -4,6 +4,7 @@ import BarchartEmptype from "./charts/barchart_emptype";
 import Horbarchart_department from "./charts/horbarchart_department";
 import BarchartisFilled from "./charts/barchart_isFilled";
 import PieChartGender from "./charts/piechart_gender";
+import PieChartStepSal from "./charts/piechart_steps";
 import PieChartCS from "./charts/piechart_cselig";
 import PieChartDivision from "./charts/piechart_division";
 import PieChartSG from "./charts/piechart_SG";
@@ -113,18 +114,42 @@ const EmployeeCard = () => {
       .then((res) => res.json())
       .then((data) => {
         const filledItem = data.find((item: any) => item.status === "Filled");
-         const unfilledItem = data.find((item: any) => item.status === "Unfilled");;
+        const unfilledItem = data.find((item: any) => item.status === "Unfilled");;
 
-         setFilled(filledItem?.filled ?? 0);
-         setUnfilled(unfilledItem?.unfilled ?? 0);
+        setFilled(filledItem?.filled ?? 0);
+        setUnfilled(unfilledItem?.unfilled ?? 0);
       })
       .catch((err) => console.error("Error fetching :", err));
   }, []);
+
+  const [avgSal, setavgSal] = useState<number>(0);
+
+  useEffect(() => {
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getAvgSalary.php", { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        setavgSal(data.avgSal ?? 0);
+      })
+      .catch((err) => console.error("Error fetching :", err));
+  }, []);
+  const [oldestPerDept, setOldestPerDept] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getOldest.php", { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => setOldestPerDept(data))
+      .catch((err) => console.error("Error fetching:", err));
+  }, []);
+
+
+
+
 
   return (
     <>
 
       <div className="bg-[#5F8B4C]  rounded-2xl p-6 w-[90%] h-auto mx-auto mb-10">
+
         <div className="grid grid-rows-1 gap-6 mt-16 h-[200px]"  >
           <div className="grid grid-cols-4 gap-4">
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex justify-center  gap-10">
@@ -151,8 +176,10 @@ const EmployeeCard = () => {
             </div>
             <div className="bg-shadow-md bg-[#A9C46C] rounded-lg p-4 flex flex-col items-center">
               <h3 className="text-lg font-semibold text-gray-700">
-                Department Chart
+                Average Monthly Salary
               </h3>
+              <p className="text-4xl pt-6 font-semibold text-gray-700">{avgSal}</p>
+
               <div className="w-full">
               </div>
             </div>
@@ -166,6 +193,8 @@ const EmployeeCard = () => {
           </div>
 
         </div>
+
+
         <div className="grid grid-rows-4 gap-6 mt-6">
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
@@ -239,7 +268,8 @@ const EmployeeCard = () => {
               <DepartmentFilledChart></DepartmentFilledChart>
             </div>
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
-              <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+              <h3 className="text-lg font-semibold text-gray-700">Salary Step Chart</h3>
+              <PieChartStepSal />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
@@ -251,7 +281,15 @@ const EmployeeCard = () => {
 
             </div>
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
-              <h3 className="text-lg font-semibold text-gray-700">Card</h3>
+              <h3 className="text-lg font-semibold text-gray-700">Oldest Employee per Department</h3>
+              {oldestPerDept.map((item, idx) => (
+                <div key={idx} className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
+                  <h3 className="text-lg font-semibold text-gray-700">{item.oldestAge} yrs old</h3>
+                  <h3 className="text-lg font-semibold text-gray-700">{item.department}</h3>
+                  <h3 className="text-lg font-semibold text-gray-700">{item.incumbetFullName}</h3>
+                </div>
+              ))}
+
             </div>
           </div>
         </div>
