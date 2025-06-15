@@ -58,7 +58,9 @@ export function BarchartisFilled() {
   });
 
   useEffect(() => {
-    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getisFilled.php')
+    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getisFilled.php',{
+      credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item: any) => item.status);

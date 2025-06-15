@@ -33,7 +33,7 @@ const NavBar = () => {
             </a>
           </li>
           <li>
-            <a href="#" className="hover:text-[#EFE3C2]">
+            <a href="/Settings" className="hover:text-[#EFE3C2]">
               Settings
             </a>
           </li>

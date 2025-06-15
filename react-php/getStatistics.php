@@ -5,6 +5,7 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 require "server.php";
+
 if (!isset($_SESSION["importedId"])) {
   $fallbackSql = "SELECT date_imported_id FROM date_imported ORDER BY date_imported_id DESC LIMIT 1";
   $fallbackResult = $conn->query($fallbackSql);
@@ -20,10 +21,8 @@ if (!isset($_SESSION["importedId"])) {
 
 $date_imported_id = $_SESSION["importedId"];
 
-$sql = "SELECT appointStatus, COUNT(*) as count 
-        FROM tbl_dashboard 
-        WHERE date_imported_id = ? 
-        GROUP BY appointStatus";
+$sql = "SELECT COUNT(*) as total_position FROM tbl_dashboard WHERE date_imported_id = ?";
+
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $date_imported_id);
@@ -34,13 +33,12 @@ $data = [];
 
 while ($row = $result->fetch_assoc()) {
   $data[] = [
-    "appointStatus" => $row["appointStatus"],
-    "count" => (int)$row["count"]
+    "salary_grade" => $row["salary_grade"],
+    "total_position" => (int)$row["total_position"]
   ];
 }
 
 echo json_encode($data);
 
-$stmt->close();
 $conn->close();
 ?>

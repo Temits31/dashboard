@@ -71,7 +71,7 @@ export function Horbarchart_department() {
   });
 
   useEffect(() => {
-    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getDept.php')
+    fetch('http://localhost/PJG/dashboard/dashboard/react-php/getDept.php',{credentials: 'include'})
       .then((res) => res.json())
       .then((data) => {
         const labels = data.map((item: any) => item.department);

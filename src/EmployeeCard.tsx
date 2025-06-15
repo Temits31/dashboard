@@ -53,27 +53,9 @@ const EmployeeCard = () => {
   const [rowdata, setRowdata] = useState<RowData[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [importedId, setImportedId] = useState("");
-  const [importeddata, setImporteddata] = useState<any[]>([]);
-  useEffect(() => {
-    fetch(
-      "http://localhost/PJG/dashboard/dashboard/react-php/getAllImportedId.php"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setImporteddata(data);
-        const stored = sessionStorage.getItem("importedId");
-        if (stored) {
-          setImportedId(stored);
-        } else if (data.length > 0) {
-          const latest = data[0].date_imported_id;
-          setImportedId(latest);
-          sessionStorage.setItem("importedId", latest);
-        }
-      });
-  }, []);
 
   useEffect(() => {
-    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getData.php")
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getData.php", { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => setRowdata(data))
       .catch((err) => console.error("Error fetching data:", err));
@@ -122,74 +104,69 @@ const EmployeeCard = () => {
     const blob = new Blob([wbout], { type: "application/octet-stream" });
     saveAs(blob, "filtered_report.xlsx");
   };
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
 
-    if (!importedId) {
-      console.error("No importedId selected.");
-      return;
-    }
+  const [filled, setFilled] = useState<number>(0);
+  const [unfilled, setUnfilled] = useState<number>(0);
 
-    try {
-      const res = await fetch(
-        "http://localhost/PJG/dashboard/dashboard/react-php/set_session.php",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ importedId }),
-        }
-      );
+  useEffect(() => {
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getisFilled.php", { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        const filledItem = data.find((item: any) => item.status === "Filled");
+         const unfilledItem = data.find((item: any) => item.status === "Unfilled");;
 
-      const result = await res.json();
-      if (result.success) {
-        console.log("Session updated:", importedId);
-
-        window.location.reload();
-    
-      } else {
-        console.error("Session update failed:", result.message);
-      }
-    } catch (err) {
-      console.error("Fetch error:", err);
-    }
-  };
+         setFilled(filledItem?.filled ?? 0);
+         setUnfilled(unfilledItem?.unfilled ?? 0);
+      })
+      .catch((err) => console.error("Error fetching :", err));
+  }, []);
 
   return (
     <>
-      <div className="bg-[#5F8B4C]  rounded-2xl p-6 w-[90%] h-auto mx-auto mt-10 mb-10">
-        <div className="flex justify-center items-center mt-10 w-full p-2 bg-green-900">
-          <form onSubmit={handleSubmit}>
-            <select
-              value={importedId}
-              onChange={(e) => {
-                const selectedId = e.target.value;
-                setImportedId(selectedId);
-              }}
-              className="p-2 rounded text-black"
-            >
-              <option value="">-- Select Imported Date --</option>
-              {importeddata.map((item) => (
-                <option
-                  key={item.date_imported_id}
-                  value={item.date_imported_id}
-                >
-                  {item.date_imported}
-                </option>
-              ))}
-            </select>
 
-            <button
-              type="submit"
-              className="ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Submit
-            </button>
-          </form>
+      <div className="bg-[#5F8B4C]  rounded-2xl p-6 w-[90%] h-auto mx-auto mb-10">
+        <div className="grid grid-rows-1 gap-6 mt-16 h-[200px]"  >
+          <div className="grid grid-cols-4 gap-4">
+            <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex justify-center  gap-10">
+              <h3 className="font-semibold text-gray-700 flex flex-col items-center">
+                <p className="pb-5 text-lg">Current Employees</p>
+                <p className="text-4xl pt-2">{filled}</p>
+
+              </h3>
+
+              <h3 className="font-semibold text-gray-700  flex flex-col items-center">
+                <p className="pb-5 text-lg">Vacant Positions</p>
+                <p className="text-4xl pt-2">{unfilled}</p>
+
+
+              </h3>
+
+            </div>
+
+            <div className="bg-shadow-md bg-[#A9C46C] rounded-lg p-4 flex flex-col items-center">
+              <h3 className="text-lg font-semibold text-gray-700 ">
+                Total Items
+              </h3>
+              <p className="text-4xl pt-6 font-semibold text-gray-700">{filled + unfilled}</p>
+            </div>
+            <div className="bg-shadow-md bg-[#A9C46C] rounded-lg p-4 flex flex-col items-center">
+              <h3 className="text-lg font-semibold text-gray-700">
+                Department Chart
+              </h3>
+              <div className="w-full">
+              </div>
+            </div>
+            <div className="bg-shadow-md bg-[#A9C46C] rounded-lg p-4 flex flex-col items-center">
+              <h3 className="text-lg font-semibold text-gray-700">
+                Department Chart
+              </h3>
+              <div className="w-full">
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div className="grid grid-rows-4 gap-6 mt-10">
+        <div className="grid grid-rows-4 gap-6 mt-6">
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">
               <h3 className="text-lg font-semibold text-gray-700">
@@ -268,9 +245,9 @@ const EmployeeCard = () => {
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center col-span-2">
               <h3 className="text-lg font-semibold text-gray-700">
-                Filled and Unfilled Items per Department
+                Age Group Chart
               </h3>
-             < Histogram_age />
+              < Histogram_age />
 
             </div>
             <div className="bg-[#A9C46C] shadow-md rounded-lg p-4 flex flex-col items-center">

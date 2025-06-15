@@ -21,7 +21,7 @@ const DepartmentFilledChart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getFilledUnfilledDept.php")
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/getFilledUnfilledDept.php",{credentials: 'include'})
       .then((res) => res.json())
       .then((data) => {
         const departments = data.map((item: any) => item.department);
