@@ -141,6 +141,16 @@ const EmployeeCard = () => {
       .catch((err) => console.error("Error fetching:", err));
   }, []);
 
+const [totalSal, setTotalSal] = useState<number>(0);
+
+  useEffect(() => {
+    fetch("http://localhost/PJG/dashboard/dashboard/react-php/totalSal.php", { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalSal(data.totalSal ?? 0);
+      })
+      .catch((err) => console.error("Error fetching :", err));
+  }, []);
 
 
 
@@ -185,8 +195,10 @@ const EmployeeCard = () => {
             </div>
             <div className="bg-shadow-md bg-[#A9C46C] rounded-lg p-4 flex flex-col items-center">
               <h3 className="text-lg font-semibold text-gray-700">
-                Department Chart
+                Total Salary
               </h3>
+              <p className="text-4xl pt-6 font-semibold text-gray-700">{totalSal}</p>
+
               <div className="w-full">
               </div>
             </div>
